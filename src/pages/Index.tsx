@@ -37,6 +37,7 @@ const Index = () => {
               variant="reveal" 
               size="xl" 
               className="animate-reveal"
+              onClick={() => window.location.href = '/avatar-creation'}
             >
               Start Your Journey
             </Button>
@@ -44,8 +45,9 @@ const Index = () => {
               variant="outline" 
               size="xl" 
               className="bg-white/20 border-white text-white hover:bg-white hover:text-primary"
+              onClick={() => window.location.href = '/discovery'}
             >
-              Learn More
+              Try Demo
             </Button>
           </div>
         </div>
@@ -140,6 +142,7 @@ const Index = () => {
             variant="reveal" 
             size="xl"
             className="animate-float"
+            onClick={() => window.location.href = '/avatar-creation'}
           >
             Get Started Now
           </Button>
