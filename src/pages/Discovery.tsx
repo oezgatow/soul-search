@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Heart, X, Sparkles, Music, Camera, Palette } from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Heart, X, Sparkles, Music, Camera, Palette, Paintbrush, Star, Coffee, Book, Mountain, Code } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +20,12 @@ const Discovery = () => {
       mediaTypes: ["music", "art", "video"],
       questionCount: 4,
       revealThreshold: 75,
-      location: "2 miles away"
+      location: "2 miles away",
+      avatar: {
+        bgColor: "bg-gradient-to-br from-purple-400 to-pink-400",
+        icon: Paintbrush,
+        initials: "CS"
+      }
     },
     {
       id: 2, 
@@ -30,7 +36,12 @@ const Discovery = () => {
       mediaTypes: ["video", "music"],
       questionCount: 4,
       revealThreshold: 50,
-      location: "5 miles away"
+      location: "5 miles away",
+      avatar: {
+        bgColor: "bg-gradient-to-br from-indigo-400 to-purple-400",
+        icon: Star,
+        initials: "WM"
+      }
     },
     {
       id: 3,
@@ -41,7 +52,12 @@ const Discovery = () => {
       mediaTypes: ["art", "video", "music"],
       questionCount: 4,
       revealThreshold: 100,
-      location: "1 mile away"
+      location: "1 mile away",
+      avatar: {
+        bgColor: "bg-gradient-to-br from-emerald-400 to-teal-400",
+        icon: Code,
+        initials: "DD"
+      }
     }
   ];
 
@@ -86,9 +102,11 @@ const Discovery = () => {
           <CardContent className="p-0">
             {/* Avatar Section */}
             <div className="bg-gradient-mystery p-8 text-center text-white">
-              <div className="w-24 h-24 bg-white/20 rounded-full mx-auto mb-4 flex items-center justify-center backdrop-blur-sm">
-                <span className="text-3xl font-bold">?</span>
-              </div>
+              <Avatar className="w-24 h-24 mx-auto mb-4">
+                <AvatarFallback className={`${currentUser.avatar.bgColor} text-white`}>
+                  <currentUser.avatar.icon className="w-8 h-8" />
+                </AvatarFallback>
+              </Avatar>
               <h2 className="text-xl font-bold mb-2">{currentUser.anonymousName}</h2>
               <p className="text-white/80 text-sm mb-4">{currentUser.location}</p>
               
