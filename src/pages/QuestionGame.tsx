@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, CheckCircle, XCircle, Eye, EyeOff, Lightbulb } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -23,21 +23,25 @@ const QuestionGame = () => {
     {
       question: "What's the most important lesson life has taught you?",
       correctAnswer: "authenticity",
+      wrongAnswer: "success",
       hints: ["It's about being true to yourself", "Starts with 'a'", "12 letters long"]
     },
     {
       question: "If you could master any art form instantly, which would you choose?",
       correctAnswer: "watercolor",
+      wrongAnswer: "sculpture",
       hints: ["It's a painting technique", "Uses water", "Often transparent"]
     },
     {
       question: "What makes you feel most understood?",
       correctAnswer: "deep conversations",
+      wrongAnswer: "social media",
       hints: ["It involves talking", "More than surface level", "Two words"]
     },
     {
       question: "What's something you've created that you're proud of?",
       correctAnswer: "poetry",
+      wrongAnswer: "website",
       hints: ["It's written art", "Often rhymes", "Expresses emotions"]
     }
   ];
@@ -46,7 +50,7 @@ const QuestionGame = () => {
   const [showHint, setShowHint] = useState(false);
 
   const checkAnswer = () => {
-    const correct = currentAnswer.toLowerCase().includes(questions[currentQuestion].correctAnswer.toLowerCase());
+    const correct = currentAnswer === questions[currentQuestion].correctAnswer;
     const newAnswers = [...answers, currentAnswer];
     setAnswers(newAnswers);
     
@@ -161,14 +165,23 @@ const QuestionGame = () => {
               )}
 
               <div className="space-y-4">
-                <Input
-                  placeholder="Type your answer..."
+                <Select
                   value={currentAnswer}
-                  onChange={(e) => setCurrentAnswer(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && currentAnswer && checkAnswer()}
+                  onValueChange={setCurrentAnswer}
                   disabled={showResult}
-                  className="text-lg"
-                />
+                >
+                  <SelectTrigger className="text-lg">
+                    <SelectValue placeholder="Choose your answer..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={questions[currentQuestion].correctAnswer}>
+                      {questions[currentQuestion].correctAnswer}
+                    </SelectItem>
+                    <SelectItem value={questions[currentQuestion].wrongAnswer}>
+                      {questions[currentQuestion].wrongAnswer}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
 
                 <Button 
                   variant="romantic" 
@@ -184,7 +197,7 @@ const QuestionGame = () => {
               {/* Result Display */}
               {showResult && (
                 <div className="mt-4 p-4 rounded-lg text-center animate-fade-in">
-                  {currentAnswer.toLowerCase().includes(questions[currentQuestion].correctAnswer.toLowerCase()) ? (
+                  {currentAnswer === questions[currentQuestion].correctAnswer ? (
                     <div className="text-success">
                       <CheckCircle className="w-8 h-8 mx-auto mb-2" />
                       <p className="font-semibold">Correct!</p>
@@ -241,7 +254,7 @@ const QuestionGame = () => {
                       {index + 1}
                     </Badge>
                     <span className="text-muted-foreground">{answer}</span>
-                    {answer.toLowerCase().includes(questions[index].correctAnswer.toLowerCase()) ? (
+                    {answer === questions[index].correctAnswer ? (
                       <CheckCircle className="w-4 h-4 text-success" />
                     ) : (
                       <XCircle className="w-4 h-4 text-destructive" />
