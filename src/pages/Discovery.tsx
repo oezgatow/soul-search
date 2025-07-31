@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Heart, X, Sparkles, Music, Camera, Palette, Paintbrush, Star, Coffee, Book, Mountain, Code } from "lucide-react";
+import { Heart, X, Sparkles, Music, Camera, Palette, Paintbrush, Star, Coffee, Book, Mountain, Code, ExternalLink } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -25,7 +25,30 @@ const Discovery = () => {
         bgColor: "bg-gradient-to-br from-purple-400 to-pink-400",
         icon: Paintbrush,
         initials: "CS"
-      }
+      },
+      media: [
+        {
+          type: "music",
+          title: "Watercolor Dreams",
+          description: "Original guitar composition",
+          link: "https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC",
+          platform: "Spotify"
+        },
+        {
+          type: "art", 
+          title: "Morning Coffee Series",
+          description: "Watercolor paintings of daily rituals",
+          link: "https://www.instagram.com/p/example",
+          platform: "Instagram"
+        },
+        {
+          type: "video",
+          title: "Poetry in Motion",
+          description: "3-second loop of brush strokes",
+          link: "https://www.tiktok.com/@example",
+          platform: "TikTok"
+        }
+      ]
     },
     {
       id: 2, 
@@ -41,7 +64,30 @@ const Discovery = () => {
         bgColor: "bg-gradient-to-br from-indigo-400 to-purple-400",
         icon: Star,
         initials: "WM"
-      }
+      },
+      media: [
+        {
+          type: "music",
+          title: "Cosmic Jazz Playlist",
+          description: "Late night stargazing soundtrack",
+          link: "https://open.spotify.com/playlist/37i9dQZF1DX0XUsuxWHRQd",
+          platform: "Spotify"
+        },
+        {
+          type: "video",
+          title: "Milky Way Timelapse",
+          description: "3-hour condensed into 30 seconds",
+          link: "https://www.youtube.com/watch?v=example",
+          platform: "YouTube"
+        },
+        {
+          type: "art",
+          title: "Philosophy Sketches",
+          description: "Visual interpretations of abstract concepts",
+          link: "https://www.behance.net/gallery/example",
+          platform: "Behance"
+        }
+      ]
     },
     {
       id: 3,
@@ -57,7 +103,30 @@ const Discovery = () => {
         bgColor: "bg-gradient-to-br from-emerald-400 to-teal-400",
         icon: Code,
         initials: "DD"
-      }
+      },
+      media: [
+        {
+          type: "art",
+          title: "UI Design Portfolio",
+          description: "Mobile app designs & prototypes",
+          link: "https://dribbble.com/shots/example",
+          platform: "Dribbble"
+        },
+        {
+          type: "music",
+          title: "Coding Beats",
+          description: "Lo-fi hip hop for productivity",
+          link: "https://open.spotify.com/playlist/37i9dQZF1DWZeKCadgRdKQ",
+          platform: "Spotify"
+        },
+        {
+          type: "video",
+          title: "Plant Growth Timelapse",
+          description: "Succulent collection over 6 months",
+          link: "https://www.instagram.com/reel/example",
+          platform: "Instagram"
+        }
+      ]
     }
   ];
 
@@ -159,13 +228,41 @@ const Discovery = () => {
                 </p>
               </div>
 
-              {/* Question Challenge */}
+              {/* Media Content */}
+              <div>
+                <h3 className="font-semibold mb-3 text-foreground">Featured Content</h3>
+                <div className="space-y-3">
+                  {currentUser.media.map((item, index) => (
+                    <Card key={index} className="bg-muted/50 hover:bg-muted/80 transition-colors cursor-pointer">
+                      <CardContent className="p-3">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            {getMediaIcon(item.type)}
+                            <div>
+                              <p className="font-medium text-sm">{item.title}</p>
+                              <p className="text-xs text-muted-foreground">{item.description}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Badge variant="outline" className="text-xs">
+                              {item.platform}
+                            </Badge>
+                            <ExternalLink className="w-4 h-4 text-muted-foreground" />
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* Question Challenge - Hidden threshold info */}
               <Card className="bg-gradient-reveal border-0 text-white">
                 <CardContent className="p-4 text-center">
                   <Sparkles className="w-8 h-8 mx-auto mb-2" />
-                  <h4 className="font-semibold mb-1">Mystery Challenge</h4>
+                  <h4 className="font-semibold mb-1">Connection Challenge</h4>
                   <p className="text-white/90 text-sm">
-                    Answer {currentUser.revealThreshold}% of {currentUser.questionCount} questions correctly to reveal their photo
+                    Complete the compatibility quiz to unlock their photo
                   </p>
                 </CardContent>
               </Card>
