@@ -23,7 +23,7 @@ const Discovery = () => {
       location: "2 miles away",
       avatar: {
         bgColor: "bg-gradient-to-br from-purple-400 to-pink-400",
-        icon: Paintbrush,
+        icon: "paintbrush",
         initials: "CS"
       },
       media: [
@@ -62,7 +62,7 @@ const Discovery = () => {
       location: "5 miles away",
       avatar: {
         bgColor: "bg-gradient-to-br from-indigo-400 to-purple-400",
-        icon: Star,
+        icon: "star",
         initials: "WM"
       },
       media: [
@@ -101,7 +101,7 @@ const Discovery = () => {
       location: "1 mile away",
       avatar: {
         bgColor: "bg-gradient-to-br from-emerald-400 to-teal-400",
-        icon: Code,
+        icon: "code",
         initials: "DD"
       },
       media: [
@@ -153,6 +153,15 @@ const Discovery = () => {
     }
   };
 
+  const getAvatarIcon = (iconType: string) => {
+    switch (iconType) {
+      case "paintbrush": return <Paintbrush className="w-8 h-8" />;
+      case "star": return <Star className="w-8 h-8" />;
+      case "code": return <Code className="w-8 h-8" />;
+      default: return <Sparkles className="w-8 h-8" />;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background p-4">
       {/* Header */}
@@ -173,7 +182,7 @@ const Discovery = () => {
             <div className="bg-gradient-mystery p-8 text-center text-white">
               <Avatar className="w-24 h-24 mx-auto mb-4">
                 <AvatarFallback className={`${currentUser.avatar.bgColor} text-white`}>
-                  <currentUser.avatar.icon className="w-8 h-8" />
+                  {getAvatarIcon(currentUser.avatar.icon)}
                 </AvatarFallback>
               </Avatar>
               <h2 className="text-xl font-bold mb-2">{currentUser.anonymousName}</h2>
